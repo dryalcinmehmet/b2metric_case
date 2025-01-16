@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from pydantic import ValidationError
 from app.models import User, JWTToken

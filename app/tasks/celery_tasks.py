@@ -133,6 +133,6 @@ celery_app.conf.beat_schedule = {
     },
     "generate_weekly_report_reminders": {
         "task": "app.tasks.celery_tasks.generate_weekly_report_reminders",
-        "schedule": crontab(day_of_week="monday", hour=8, minute=0), 
+        "schedule": crontab(day_of_week="monday", hour=8, minute=0),
     },
 }

@@ -70,15 +70,11 @@ def create_token_pair(user: User) -> TokenPair:
     )
 
 
-
-
 async def decode_access_token(token: str, db: AsyncSession):
     try:
         # Decode token
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = payload.get(
-            "sub"
-        )  
+        user_id = payload.get("sub")
         if user_id is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -96,15 +92,13 @@ async def decode_access_token(token: str, db: AsyncSession):
                 detail="Invalid credentials",
             )
 
-        return user  
+        return user
 
     except JWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
         )
-
-
 
 
 async def decode_access_token_for_verify(token: str, db: AsyncSession):

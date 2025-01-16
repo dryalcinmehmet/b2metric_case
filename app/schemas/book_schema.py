@@ -71,7 +71,7 @@ class OverdueBookSchema(BaseModel):
 
 
 class BookOut(BaseModel):
-    id: UUID 
+    id: UUID
     title: str
     author: str
     available: bool

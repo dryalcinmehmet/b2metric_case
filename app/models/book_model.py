@@ -29,6 +29,7 @@ from sqlalchemy import (
     update,
 )
 
+
 class BookModel(Base):
     __tablename__ = "books"
 
@@ -63,7 +64,7 @@ class BookModel(Base):
             .join(BookModel, CheckoutModel.book_id == BookModel.id)
             .join(PatronModel, CheckoutModel.patron_id == PatronModel.id)
             .filter(CheckoutModel.returned == False)
-            .distinct() 
+            .distinct()
         )
         result = await db.execute(query)
         return result.mappings().all()
@@ -81,10 +82,8 @@ class BookModel(Base):
             )
             .join(BookModel, CheckoutModel.book_id == BookModel.id)
             .join(PatronModel, CheckoutModel.patron_id == PatronModel.id)
-            .filter(CheckoutModel.returned == False)  
-            .filter(
-                CheckoutModel.due_date < datetime.now()
-            ) 
+            .filter(CheckoutModel.returned == False)
+            .filter(CheckoutModel.due_date < datetime.now())
         )
 
         result = await db.execute(query)
@@ -103,13 +102,11 @@ class BookModel(Base):
             )
             .join(BookModel, CheckoutModel.book_id == BookModel.id)
             .join(PatronModel, CheckoutModel.patron_id == PatronModel.id)
-            .filter(CheckoutModel.returned == False) 
-            .filter(
-                CheckoutModel.due_date < datetime.now()
-            )  
+            .filter(CheckoutModel.returned == False)
+            .filter(CheckoutModel.due_date < datetime.now())
         )
 
-        result = db.execute(query) 
+        result = db.execute(query)
         return result
 
     @classmethod

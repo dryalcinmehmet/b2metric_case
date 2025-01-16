@@ -254,7 +254,7 @@ async def mark_book_available(
         "id": book.id,
         "title": book.title,
         "author": book.author,
-        "available": book.available,  
+        "available": book.available,
     }
 
 
@@ -275,5 +275,5 @@ async def mark_book_unavailable(
         "id": book.id,
         "title": book.title,
         "author": book.author,
-        "available": book.available,  
+        "available": book.available,
     }

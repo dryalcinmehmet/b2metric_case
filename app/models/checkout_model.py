@@ -26,6 +26,7 @@ from sqlalchemy import (
     update,
 )
 
+
 class CheckoutModel(Base):
     __tablename__ = "checkouts"
 

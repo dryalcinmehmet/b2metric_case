@@ -4,7 +4,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import Column, String, DateTime, Boolean, ForeignKey, select, func, UUID
 
 
-
 class JWTToken(Base):
     __tablename__ = "jwttokens"
 

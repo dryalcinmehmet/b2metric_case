@@ -37,7 +37,6 @@ from app.core.jwt import (
 )
 
 
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 router = APIRouter(
