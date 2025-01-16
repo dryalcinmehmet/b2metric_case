@@ -30,7 +30,9 @@ It will run projects with docker-compose.
 🟣 After run "make dev" command Makefile is gonna starting docker-compose commands.
 
 Celery Tasks:
+
     🟧🟨 send_overdue_reminders -> It runs every minute.
+    
     🟧🟨 generate_weekly_report_reminders -> It runs every week on Monday at 08:00.
 
 Best Regards
