@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  web:
+    restart: always
+    build: 
+      context: ./
+      dockerfile: Dockerfile.prod
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000  --workers 4 --reload
+    volumes:
+      - ./app/:/usr/src/app/app
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+    networks:
+      - common_network
+    stdin_open: true 
+    tty: true    
+  db:
+    image: postgres:13.0-alpine
+    restart: always
+    volumes:
+     - postgres_data_production:/var/lib/postgresql/data/
+    env_file:
+     - ./.env.prod
+    ports:
+      - 5432:5432
+    networks:
+      - common_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+     - 80:80
+    depends_on:
+      - web
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    networks:
+      - common_network
+    stdin_open: true 
+    tty: true    
+  redis:
+      restart: unless-stopped
+      image: redis:7.0.5-alpine 
+      networks:
+        - common_network
+      ports:
+        - 6379:6379
+
+volumes:
+  postgres_data_production:
+  static_volume:
+  media_volume:
+
+networks:
+  common_network:
+    external:
+      name: custom_net
